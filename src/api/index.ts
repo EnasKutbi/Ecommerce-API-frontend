@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { config } from 'process'
 
 const isDevelopment = import.meta.env.MODE === 'development'
 let baseURL = "http://localhost:5125/api/"
@@ -10,6 +11,14 @@ if (!isDevelopment) {
 
 const api = axios.create({
   baseURL
+})
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
+  return config;
 })
 
 // use this to handle errors gracefully

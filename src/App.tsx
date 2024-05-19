@@ -1,10 +1,11 @@
-import api from "./api"
+// import api from "./api"
 
 import "./App.css"
-import { useEffect } from "react"
+import Index from "./routes"
+// import { useEffect } from "react"
 
 function App() {
-  const getProducts = async () => {
+  /*const getProducts = async () => {
     try {
       console.log("I am running");
       const res = await api.get("/products")
@@ -19,12 +20,8 @@ function App() {
   useEffect(() => {
     getProducts();
   }, []);
-
-  return (
-    <div className="App">
-      <h1>Welcome to E-commerce app</h1>
-    </div>
-  )
+  */
+  return < Index />
 }
 
 export default App
