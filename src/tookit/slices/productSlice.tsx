@@ -33,25 +33,45 @@ export const fetchProducts = createAsyncThunk(
   }
 )
 
+export const fetchProductsBySlug = createAsyncThunk(
+  "products/fetchProductsBySlug",
+  async (slug: string | undefined) => {
+    const response = await api.get(`/products/${slug}`)
+    return response.data
+  }
+)
+
 const productSlice = createSlice({
   name: "products",
   initialState: initialState,
-    reducers: {},
-    extraReducers(builder) {
-        builder.addCase(fetchProducts.pending, (state) => {
-          state.error = null
-          state.isLoading = true
-        })
-        builder.addCase(fetchProducts.fulfilled, (state, action) => {
-          state.products = action.payload.data.items
-          state.totalPages = action.payload.data.totalPages
-          state.isLoading = false
-        })
-        builder.addCase(fetchProducts.rejected, (state, action) => {
-          state.error = action.error.message || "An error occurred"
-          state.isLoading = false
-        })
-     }
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(fetchProducts.fulfilled, (state, action) => {
+      state.products = action.payload.data.items
+      state.totalPages = action.payload.data.totalPages
+      state.isLoading = false
+    })
+
+    builder.addCase(fetchProductsBySlug.fulfilled, (state, action) => {
+      state.totalPages = action.payload.data
+      state.isLoading = false
+    })
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/pending"),
+      (state) => {
+        state.error = null
+        state.isLoading = true
+      }
+    )
+    builder.addMatcher(
+      (action) => action.type.endsWith("/rejected"),
+      (state, action) => {
+        state.error = "An error occurred"
+        state.isLoading = false
+      }
+    )
+  }
 })
 
 export default productSlice.reducer
