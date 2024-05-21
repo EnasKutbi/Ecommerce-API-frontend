@@ -29,3 +29,19 @@ export type ProductState = {
   error: null | string
   isLoading: boolean
 }
+
+export type User = {
+  name: string
+  email: string
+  password: string
+  address: string
+  image?: string
+  isAdmin?: boolean
+  isBanned?: boolean
+  createdAt?: string
+}
+
+export type UserState = {
+  error: null | string
+  isLoading: boolean
+}

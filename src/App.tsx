@@ -2,26 +2,17 @@
 
 import "./App.css"
 import Index from "./routes"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 // import { useEffect } from "react"
 
 function App() {
-  /*const getProducts = async () => {
-    try {
-      console.log("I am running");
-      const res = await api.get("/products")
-      console.log(res.data.data.items);
-      // return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-  */
-  return < Index />
+  return (
+    <div>
+      <ToastContainer />
+      <Index />
+    </div>
+  )
 }
 
 export default App
