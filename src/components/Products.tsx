@@ -16,6 +16,13 @@ const Products = () => {
   const [searchKeyword, setSearchKeyword] = useState("")
   const [sortBy, setSortBy] = useState("Name")
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchProducts({ pageNumber, pageSize, searchKeyword, sortBy }))
+    }
+    fetchData()
+  }, [pageNumber, searchKeyword, sortBy])
+
   const handlePreviousPage = () => {
     setPageNumber((currentPage) => currentPage - 1)
   }
@@ -31,13 +38,6 @@ const Products = () => {
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortBy(e.target.value)
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(fetchProducts({ pageNumber, pageSize, searchKeyword, sortBy }))
-    }
-    fetchData()
-  }, [pageNumber, searchKeyword, sortBy])
 
   return (
     <div>

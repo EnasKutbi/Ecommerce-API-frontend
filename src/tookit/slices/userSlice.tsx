@@ -1,6 +1,6 @@
 import api from "@/api"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { UserState, User } from "@/types"
+import { UserState, User, LoginFormData } from "@/types"
 
 const initialState: UserState = {
   error: null,
@@ -9,6 +9,11 @@ const initialState: UserState = {
 
 export const registerUser = createAsyncThunk("users/registerUser", async (newUser: User) => {
   const response = await api.post(`/users`, newUser)
+  return response.data
+})
+
+export const loginUser = createAsyncThunk("users/loginUser", async (userData: LoginFormData) => {
+  const response = await api.post(`/users/login`, userData)
   return response.data
 })
 

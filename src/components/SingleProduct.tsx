@@ -9,7 +9,6 @@ const SingleProduct = (props: { product: Product }) => {
       <img src={product.imageUrl} alt={product.name} className="product_img" />
       <div className="product_body">
         <h3 className="product_name">{product.name}</h3>
-        {/* <p className="product_description">{product.description}</p> */}
         <p className="product_price">Price: {product.price}</p>
         <div>
           <Link to={`/products/${product.productId}`}>

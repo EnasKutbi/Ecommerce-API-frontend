@@ -3,54 +3,35 @@ import React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { AppDispatch } from "@/tookit/store"
 import { useDispatch } from "react-redux"
-import { registerUser } from "@/tookit/slices/userSlice"
+import { loginUser } from "@/tookit/slices/userSlice"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
+import { LoginFormData } from "@/types"
 
-type FormData = {
-  name: string
-  email: string
-  password: string
-  address: string
-  imgUrl: string
-}
-
-export const Register = () => {
+export const Login = () => {
     const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch()
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<FormData>()
+  } = useForm<LoginFormData>()
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
     try {
-      const response = await dispatch(registerUser(data))
+      const response = await dispatch(loginUser(data))
       toast.success(response.payload.message)
-      // navigate("/login")
+      //   navigate("/login")
     } catch (error: any) {
-      toast.error(error.message || "Registration failed")
+      toast.error(error.message || "Login failed")
     }
   }
 
   return (
-    <div className="register">
-      <PageTitle title="Register" />
-      <h2>User Registration</h2>
+    <div className="login">
+      <PageTitle title="Login" />
+      <h2>User Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-field">
-          <label htmlFor="name">Name: </label>
-          <input
-            type="text"
-            {...register("name", {
-              required: "Name is required",
-              minLength: { value: 2, message: "Name must be at least 2 characters" }
-            })}
-          />
-          {errors.name && <p>{errors.name.message}</p>}
-        </div>
-
         <div className="form-field">
           <label htmlFor="email">Email: </label>
           <input
@@ -73,12 +54,9 @@ export const Register = () => {
             })}
           />
           {errors.password && <p>{errors.password.message}</p>}
-        </div>
-        <div className="form-field">
-          <label htmlFor="address">Address: </label>
-          <textarea {...register("address")}></textarea>
-        </div>
-        <button type="submit">Register</button>
+              </div>
+              
+        <button type="submit">Login</button>
       </form>
     </div>
   )

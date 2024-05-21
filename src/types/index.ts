@@ -45,3 +45,8 @@ export type UserState = {
   error: null | string
   isLoading: boolean
 }
+
+export type LoginFormData = {
+  email: string
+  password: string
+}
