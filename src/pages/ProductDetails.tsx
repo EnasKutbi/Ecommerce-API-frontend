@@ -1,5 +1,5 @@
 import PageTitle from "@/components/PageTitle"
-import { fetchProductsBySlug } from "@/tookit/slices/productSlice"
+import { fetchProductBySlug } from "@/tookit/slices/productSlice"
 import { AppDispatch, RootState } from "@/tookit/store"
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -12,7 +12,7 @@ export const ProductDetails = () => {
   const dispatch: AppDispatch = useDispatch()
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(fetchProductsBySlug(slug))
+      await dispatch(fetchProductBySlug(slug))
     }
     fetchData()
   }, [])

@@ -33,8 +33,8 @@ export const fetchProducts = createAsyncThunk(
   }
 )
 
-export const fetchProductsBySlug = createAsyncThunk(
-  "products/fetchProductsBySlug",
+export const fetchProductBySlug = createAsyncThunk(
+  "products/fetchProductBySlug",
   async (slug: string | undefined) => {
     const response = await api.get(`/products/${slug}`)
     return response.data
@@ -53,8 +53,8 @@ const productSlice = createSlice({
       state.isLoading = false
     })
 
-    builder.addCase(fetchProductsBySlug.fulfilled, (state, action) => {
-      state.totalPages = action.payload.data
+    builder.addCase(fetchProductBySlug.fulfilled, (state, action) => {
+      state.product = action.payload.data
       state.isLoading = false
     })
 
