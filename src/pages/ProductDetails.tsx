@@ -10,7 +10,6 @@ export const ProductDetails = () => {
   const { product, isLoading, error } = useSelector((state: RootState) => state.productR)
 
   const dispatch: AppDispatch = useDispatch()
-  console.log(product)
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(fetchProductsBySlug(slug))

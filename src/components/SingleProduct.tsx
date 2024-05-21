@@ -12,7 +12,7 @@ const SingleProduct = (props: { product: Product }) => {
         {/* <p className="product_description">{product.description}</p> */}
         <p className="product_price">Price: {product.price}</p>
         <div>
-          <Link to={`/products/${product.slug}`}>
+          <Link to={`/products/${product.productId}`}>
             <button className="btn product_btn">
               Show Details
             </button>

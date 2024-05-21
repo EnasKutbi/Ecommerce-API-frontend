@@ -45,6 +45,7 @@ const productSlice = createSlice({
   name: "products",
   initialState: initialState,
   reducers: {},
+  
   extraReducers(builder) {
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.products = action.payload.data.items
@@ -66,7 +67,7 @@ const productSlice = createSlice({
     )
     builder.addMatcher(
       (action) => action.type.endsWith("/rejected"),
-      (state, action) => {
+      (state) => {
         state.error = "An error occurred"
         state.isLoading = false
       }
