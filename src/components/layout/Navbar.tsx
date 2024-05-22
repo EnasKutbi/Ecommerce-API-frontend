@@ -6,7 +6,7 @@ import { logoutUser } from "@/tookit/slices/userSlice"
 
 export const Navbar = () => {
       const dispatch: AppDispatch = useDispatch()
-      const { isLoading } = useSelector((state: RootState) => state.userR)
+      const { isLoggedIn } = useSelector((state: RootState) => state.userR)
       const handleLogout = () => {
         dispatch(logoutUser())
       }
@@ -16,17 +16,25 @@ export const Navbar = () => {
         <li>
           <Link to="/">Home</Link>
         </li>
-        <li>
-          <Link to="/register">Register</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/" onClick={handleLogout}>
-            Logout
-          </Link>{" "}
-        </li>
+        {isLoggedIn && (
+          <>
+            <li>
+              <Link to="/" onClick={handleLogout}>
+                Logout
+              </Link>
+            </li>
+          </>
+        )}
+        {!isLoggedIn && (
+          <>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </>
+        )}
         <li>
           <Link to="/contact">Contact</Link>
         </li>

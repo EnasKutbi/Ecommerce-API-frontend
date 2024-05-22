@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
 import { LoginFormData } from "@/types"
 
 export const Login = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate()
   const dispatch: AppDispatch = useDispatch()
   const {
     register,
@@ -20,8 +20,9 @@ export const Login = () => {
   const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
     try {
       const response = await dispatch(loginUser(data))
-      toast.success(response.payload.message)
-        navigate("/")
+      const isAdmin = response.payload.data.user.isAdmin
+      navigate(isAdmin ? "/dashboard/admin" : "/dashboard/user")
+      // toast.success(response.payload.message)
     } catch (error: any) {
       toast.error(error.message || "Login failed")
     }
@@ -54,8 +55,8 @@ export const Login = () => {
             })}
           />
           {errors.password && <p>{errors.password.message}</p>}
-              </div>
-              
+        </div>
+
         <button type="submit">Login</button>
       </form>
     </div>

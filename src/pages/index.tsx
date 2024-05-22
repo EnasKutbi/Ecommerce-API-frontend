@@ -1,8 +1,13 @@
-import { Home } from "./Home"
-import { Contact } from "./Contact"
-import { Error } from "./Error"
-import { Register } from "./Register"
-import { Login } from "./Login"
-
-export { Error, Contact, Home, Register, Login }
-
+export { Home } from "./Home"
+export { Contact } from "./Contact"
+export { Error } from "./Error"
+export { Register } from "./Register"
+export { Login } from "./Login"
+export { UserDashboard } from "./users/UserDashboard"
+export { AdminDashboard } from "./admins/AdminDashboard"
+export { UserProfile } from "./users/UserProfile"
+export { UserOrders } from "./users/UserOrders"
+export { AdminCategories } from "./admins/AdminCategories"
+export { AdminProducts } from "./admins/AdminProducts"
+export { AdminUsers } from "./admins/AdminUsers"
+export { AdminOrders } from "./admins/AdminOrders"
