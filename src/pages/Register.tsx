@@ -90,6 +90,9 @@ export const Register = () => {
           <label htmlFor="image"> Image: </label>
           <input type="file" accept="image/*" onChange={handleImageChange} />
           {errors.image && <p className="error">{errors.image?.message}</p>}
+          {imagePreview && (
+            <img className="image-preview" src={imagePreview} alt="imagePreview"></img>
+          )}
         </div>
         <button type="submit">Register</button>
       </form>

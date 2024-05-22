@@ -47,8 +47,9 @@ const userSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.isLoggedIn = true
-      state.userData = action.payload.data.user
+      state.userData = action.payload.data.loggedInUser
       state.token = action.payload.data.token
+      state.isLoggedIn = true
       state.isLoading = false
       localStorage.setItem(
         "loginData",
