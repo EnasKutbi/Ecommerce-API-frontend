@@ -2,9 +2,17 @@ import api from "@/api"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { UserState, User, LoginFormData } from "@/types"
 
+const data =
+  localStorage.getItem("loginData") != null
+    ? JSON.parse(String(localStorage.getItem("loginData")))
+    : []
+
 const initialState: UserState = {
   error: null,
-  isLoading: false
+  isLoading: false,
+  userData: data.userData,
+  token: data.token,
+  isLoggedIn: data.isLoggedIn
 }
 
 export const registerUser = createAsyncThunk("users/registerUser", async (newUser: User) => {
@@ -20,8 +28,55 @@ export const loginUser = createAsyncThunk("users/loginUser", async (userData: Lo
 const userSlice = createSlice({
   name: "products",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    logoutUser: (state) => {
+      state.isLoggedIn = false
+      state.isLoading = false
+      state.userData = null
+      state.token = null
+      localStorage.setItem(
+        "loginData",
+        JSON.stringify({
+          isLoggedIn: state.isLoggedIn,
+          userData: state.userData,
+          token: state.token
+        })
+      )
+    }
+  },
+  extraReducers(builder) {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.isLoggedIn = true
+      state.userData = action.payload.data.user
+      state.token = action.payload.data.token
+      state.isLoading = false
+      localStorage.setItem(
+        "loginData",
+        JSON.stringify({
+          isLoggedIn: state.isLoggedIn,
+          userData: state.userData,
+          token: state.token
+        })
+      )
+    })
 
+    builder.addMatcher(
+      (action) => action.type.endsWith("/pending"),
+      (state) => {
+        state.error = null
+        state.isLoading = true
+      }
+    )
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/rejected"),
+      (state) => {
+        state.error = "An error occurred"
+        state.isLoading = false
+      }
+    )
+  }
 })
 
+export const { logoutUser } = userSlice.actions
 export default userSlice.reducer

@@ -1,7 +1,15 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { AppDispatch, RootState } from "@/tookit/store"
+import { useDispatch, useSelector } from "react-redux"
+import { logoutUser } from "@/tookit/slices/userSlice"
 
 export const Navbar = () => {
+      const dispatch: AppDispatch = useDispatch()
+      const { isLoading } = useSelector((state: RootState) => state.userR)
+      const handleLogout = () => {
+        dispatch(logoutUser())
+      }
   return (
     <nav className="navbar">
       <ul className="navbar_lists">
@@ -13,6 +21,11 @@ export const Navbar = () => {
         </li>
         <li>
           <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/" onClick={handleLogout}>
+            Logout
+          </Link>{" "}
         </li>
         <li>
           <Link to="/contact">Contact</Link>

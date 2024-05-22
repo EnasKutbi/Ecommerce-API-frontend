@@ -21,7 +21,7 @@ export const Login = () => {
     try {
       const response = await dispatch(loginUser(data))
       toast.success(response.payload.message)
-      //   navigate("/login")
+        navigate("/")
     } catch (error: any) {
       toast.error(error.message || "Login failed")
     }

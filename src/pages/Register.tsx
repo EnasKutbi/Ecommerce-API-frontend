@@ -1,5 +1,5 @@
 import PageTitle from "@/components/PageTitle"
-import React from "react"
+import React, { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { AppDispatch } from "@/tookit/store"
 import { useDispatch } from "react-redux"
@@ -12,11 +12,12 @@ type FormData = {
   email: string
   password: string
   address: string
-  imgUrl: string
+  image: string
 }
 
 export const Register = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate()
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
   const dispatch: AppDispatch = useDispatch()
   const {
     register,
@@ -28,9 +29,16 @@ export const Register = () => {
     try {
       const response = await dispatch(registerUser(data))
       toast.success(response.payload.message)
-      // navigate("/login")
+      navigate("/login")
     } catch (error: any) {
       toast.error(error.message || "Registration failed")
+    }
+  }
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      setImagePreview(URL.createObjectURL(file))
     }
   }
 
@@ -77,6 +85,11 @@ export const Register = () => {
         <div className="form-field">
           <label htmlFor="address">Address: </label>
           <textarea {...register("address")}></textarea>
+        </div>
+        <div className="form-field">
+          <label htmlFor="image"> Image: </label>
+          <input type="file" accept="image/*" onChange={handleImageChange} />
+          {errors.image && <p className="error">{errors.image?.message}</p>}
         </div>
         <button type="submit">Register</button>
       </form>
