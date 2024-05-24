@@ -1,11 +1,18 @@
 import api from "@/api"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { UserState, User, LoginFormData } from "@/types"
+import { UserState, User, LoginFormData, UpdateProfileFormData } from "@/types"
+import { getLocalStorage, getToken, setLocalStorage } from "@/utils/localStorage"
 
-const data =
-  localStorage.getItem("loginData") != null
-    ? JSON.parse(String(localStorage.getItem("loginData")))
-    : []
+// const data =
+//   localStorage.getItem("loginData") != null
+//     ? JSON.parse(String(localStorage.getItem("loginData")))
+//     : []
+
+const data = getLocalStorage("loginData", {
+  userData: null,
+  token: null,
+  isLoggedIn: false
+})
 
 const initialState: UserState = {
   error: null,
@@ -24,6 +31,18 @@ export const loginUser = createAsyncThunk("users/loginUser", async (userData: Lo
   const response = await api.post(`/users/login`, userData)
   return response.data
 })
+
+export const updateUser = createAsyncThunk(
+  "users/updateUser",
+  async ({ updateUserData, userId }: { updateUserData: UpdateProfileFormData; userId: string }) => {
+    const response = await api.put(`/users/${userId}`, updateUserData, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    return response.data
+  }
+)
 
 const userSlice = createSlice({
   name: "products",
@@ -59,6 +78,18 @@ const userSlice = createSlice({
           token: state.token
         })
       )
+    })
+
+    builder.addCase(updateUser.fulfilled, (state, action) => {
+      if (state.userData) {
+        state.userData.name = action.payload.data.name
+        state.userData.address = action.payload.data.address
+        setLocalStorage("loginData", {
+          isLoggedIn: state.isLoggedIn,
+          userData: state.userData,
+          token: state.token
+        })
+      }
     })
 
     builder.addMatcher(

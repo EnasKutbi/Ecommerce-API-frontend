@@ -6,14 +6,8 @@ import { useDispatch } from "react-redux"
 import { registerUser } from "@/tookit/slices/userSlice"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
+import { RegisterFormData } from "@/types"
 
-type FormData = {
-  name: string
-  email: string
-  password: string
-  address: string
-  image: string
-}
 
 export const Register = () => {
   const navigate = useNavigate()
@@ -23,9 +17,9 @@ export const Register = () => {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<FormData>()
+  } = useForm<RegisterFormData>()
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
     try {
       const response = await dispatch(registerUser(data))
       toast.success(response.payload.message)
@@ -89,7 +83,6 @@ export const Register = () => {
         <div className="form-field">
           <label htmlFor="image"> Image: </label>
           <input type="file" accept="image/*" onChange={handleImageChange} />
-          {errors.image && <p className="error">{errors.image?.message}</p>}
           {imagePreview && (
             <img className="image-preview" src={imagePreview} alt="imagePreview"></img>
           )}
