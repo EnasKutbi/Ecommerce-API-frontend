@@ -15,6 +15,8 @@ const data = getLocalStorage("loginData", {
 })
 
 const initialState: UserState = {
+  users: [],
+  totalPages: 1,
   error: null,
   isLoading: false,
   userData: data.userData,
@@ -44,8 +46,53 @@ export const updateUser = createAsyncThunk(
   }
 )
 
+export const fetchUsers = createAsyncThunk(
+  "users/fetchUsers",
+  async ({
+    pageNumber,
+    pageSize,
+    searchKeyword,
+    sortBy
+  }: {
+    pageNumber: number
+    pageSize: number
+    searchKeyword: string
+    sortBy: string
+  }) => {
+    const response =
+      searchKeyword.length > 0
+        ? await api.get(
+            `/users?pageNumber=${pageNumber}&pageSize=${pageSize}&searchKeyword=${searchKeyword}&sortBy=${sortBy}`,
+            {
+              headers: {
+                Authorization: `Bearer ${getToken()}`
+              }
+            }
+          )
+        : await api.get(`/users?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}`, {
+            headers: {
+              Authorization: `Bearer ${getToken()}`
+            }
+          })
+    return response.data
+  }
+)
+
+export const banUnbanUser = createAsyncThunk("users/banUnbanUser", async (userId: string) => {
+  const response = await api.put(
+    `/users/ban_unban/${userId}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    }
+  )
+  return response.data
+})
+
 const userSlice = createSlice({
-  name: "products",
+  name: "users",
   initialState: initialState,
   reducers: {
     logoutUser: (state) => {
@@ -65,19 +112,15 @@ const userSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.isLoggedIn = true
       state.userData = action.payload.data.loggedInUser
       state.token = action.payload.data.token
       state.isLoggedIn = true
       state.isLoading = false
-      localStorage.setItem(
-        "loginData",
-        JSON.stringify({
-          isLoggedIn: state.isLoggedIn,
-          userData: state.userData,
-          token: state.token
-        })
-      )
+      setLocalStorage("loginData", {
+        isLoggedIn: state.isLoggedIn,
+        userData: state.userData,
+        token: state.token
+      })
     })
 
     builder.addCase(updateUser.fulfilled, (state, action) => {
@@ -90,6 +133,20 @@ const userSlice = createSlice({
           token: state.token
         })
       }
+    })
+
+    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+      state.users = action.payload.data.items
+      state.totalPages = action.payload.data.totalPages
+      state.isLoading = false
+    })
+
+    builder.addCase(banUnbanUser.fulfilled, (state, action) => {
+      const foundUser = state.users.find((users) => users.userId == action.payload)
+      if (foundUser) {
+        foundUser.isBanned = !foundUser.isBanned
+      }
+      state.isLoading = false
     })
 
     builder.addMatcher(

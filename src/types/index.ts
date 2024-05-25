@@ -51,6 +51,8 @@ export type User = {
 }
 
 export type UserState = {
+  users: User[]
+  totalPages: number
   error: null | string
   isLoading: boolean
   userData: null | User
@@ -86,4 +88,4 @@ export type UpdateProfileFormData = {
 export type CreateCategoryFormData = {
   name: string
   description: string
-} 
+}
