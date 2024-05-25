@@ -12,7 +12,7 @@ const Products = () => {
   const dispatch: AppDispatch = useDispatch()
 
   const [pageNumber, setPageNumber] = useState(1)
-  const [pageSize, setPageSize] = useState(5)
+  const [pageSize] = useState(5)
   const [searchKeyword, setSearchKeyword] = useState("")
   const [sortBy, setSortBy] = useState("Name")
 
