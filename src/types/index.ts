@@ -80,6 +80,17 @@ export type RegisterFormData = {
   address: string
 }
 
+export type CreateProductFormData = {
+  name: string
+  imageUrl: string
+  description: string
+  price: number
+  quantity: number
+  sold: number
+  shipping: number
+  categoryId: string
+}
+
 export type UpdateProfileFormData = {
   name: string
   address: string

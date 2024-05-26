@@ -56,7 +56,7 @@ export const createCategory = createAsyncThunk(
         Authorization: `Bearer ${getToken()}`
       }
     })
-    return response.data.data
+    return response.data
   }
 )
 export const updateCategory = createAsyncThunk(
@@ -98,6 +98,7 @@ const categorySlice = createSlice({
 
     builder.addCase(createCategory.fulfilled, (state, action) => {
       state.categories.push(action.payload)
+      state.isLoading = false
     })
 
     builder.addCase(updateCategory.fulfilled, (state, action) => {
