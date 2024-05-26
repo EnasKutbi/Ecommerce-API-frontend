@@ -16,20 +16,37 @@ export const fetchProducts = createAsyncThunk(
   async ({
     pageNumber,
     pageSize,
-    searchKeyword,
-    sortBy
+    // searchKeyword,
+    sortBy,
+    selectedCategories,
+    minPrice,
+    maxPrice
   }: {
     pageNumber: number
     pageSize: number
-    searchKeyword: string
+    // searchKeyword: string
     sortBy: string
+    selectedCategories?: string[]
+    minPrice?: number
+    maxPrice?: number
   }) => {
-    const response =
-      searchKeyword.length > 0
-        ? await api.get(
-            `/products?pageNumber=${pageNumber}&pageSize=${pageSize}&searchKeyword=${searchKeyword}`
-          )
-        : await api.get(`/products?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}`)
+    const params = new URLSearchParams({
+      pageNumber: pageNumber.toString(),
+      pageSize: pageSize.toString(),
+      // searchKeyword,
+      sortBy
+    })
+    selectedCategories?.forEach((categoryId) => {
+      params.append("SelectedCategories", categoryId)
+    })
+    if (minPrice !== undefined) {
+      params.append("MinPrice", minPrice.toString())
+    }
+
+    if (maxPrice !== undefined) {
+      params.append("MaxPrice", maxPrice.toString())
+    }
+    const response = await api.get("/products", { params })
     return response.data
   }
 )
@@ -62,7 +79,6 @@ export const createProduct = createAsyncThunk(
         Authorization: `Bearer ${getToken()}`
       }
     })
-    console.log(response.data.data)
     return response.data
   }
 )
@@ -100,6 +116,7 @@ const productSlice = createSlice({
 
     builder.addCase(fetchProductBySlug.fulfilled, (state, action) => {
       state.product = action.payload.data
+      state.isLoading = false
     })
 
     builder.addCase(deleteProduct.fulfilled, (state, action) => {

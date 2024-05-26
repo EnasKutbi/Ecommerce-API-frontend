@@ -16,8 +16,8 @@ import {
 } from "@/tookit/slices/productSlice"
 
 export const AdminProducts = () => {
-  const { categories } = useCategoriesState()
-  const { products, isLoading, error, totalPages } = useProductsState()
+  const { categories, isLoading } = useCategoriesState()
+  const { products, error, totalPages } = useProductsState()
   const dispatch: AppDispatch = useDispatch()
   const {
     register,
@@ -35,14 +35,27 @@ export const AdminProducts = () => {
   const [isEdit, setIsEdit] = useState(false)
   const [selectedProductId, setSelectedProductId] = useState("")
   const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
+  const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(fetchProducts({ pageNumber, pageSize, searchKeyword, sortBy }))
+      await dispatch(
+        fetchProducts({
+          pageNumber,
+          pageSize,
+          // searchKeyword,
+          sortBy,
+          selectedCategories,
+          minPrice,
+          maxPrice
+        })
+      )
       await dispatch(fetchCategories({ pageNumber, pageSize, searchKeyword, sortBy }))
     }
     fetchData()
-  }, [pageNumber, searchKeyword, sortBy])
+  }, [pageNumber, /*searchKeyword,*/ sortBy, selectedCategories, minPrice, maxPrice])
 
   const handlePreviousPage = () => {
     setPageNumber((currentPage) => currentPage - 1)
@@ -60,19 +73,22 @@ export const AdminProducts = () => {
     setSortBy(e.target.value)
   }
 
-  // const onSubmit: SubmitHandler<CreateProductFormData> = async (data) => {
-  //   try {
-  //     if (isEdit) {
-  //       await dispatch(updateProduct({ updateProductData: data, productId: selectedProductId }))
-  //       setIsEdit(false)
-  //     } else {
-  //       await dispatch(createProduct(data))
-  //     }
-  //     reset()
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  const handleCategoryChange = async (categoryId: string) => {
+    setSelectedCategories((prevSelected) =>
+      prevSelected.includes(categoryId)
+        ? prevSelected.filter((id) => id !== categoryId)
+        : [...prevSelected, categoryId]
+    )
+  }
+
+  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMinPrice(Number(e.target.value))
+  }
+
+  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMaxPrice(Number(e.target.value))
+  }
+
   const onSubmit: SubmitHandler<CreateProductFormData> = async (data) => {
     try {
       if (isEdit) {
@@ -119,6 +135,39 @@ export const AdminProducts = () => {
     <div className="container">
       <AdminSidebar />
       <div className="main-container">
+        <div>
+          <h3>Filter by Category goes here</h3>
+          {categories &&
+            categories.length > 0 &&
+            categories.map((category) => (
+              <div key={category.categoryId}>
+                <label htmlFor="categories">
+                  <input
+                    type="checkbox"
+                    value={category.categoryId}
+                    checked={selectedCategories.includes(category.categoryId)}
+                    onChange={() => handleCategoryChange(category.categoryId)}
+                  />{" "}
+                  {category.name}
+                </label>
+              </div>
+            ))}
+        </div>
+        <div>
+          <h3>Filter by Price goes here</h3>
+          <div>
+            <label htmlFor="min-price">
+              Min Price:
+              <input type="text" name="min-price" id="min-price" onChange={handleMinPriceChange} />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="max-price">
+              Max Price:
+              <input type="text" name="max-price" id="max-price" onChange={handleMaxPriceChange} />
+            </label>
+          </div>
+        </div>
         {isLoading && <p>Loading...</p>}
         {error && <p>Error{error}</p>}
         <div>

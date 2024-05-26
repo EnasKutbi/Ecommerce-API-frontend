@@ -3,11 +3,14 @@ import { fetchProducts } from "@/tookit/slices/productSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "@/tookit/store"
 import SingleProduct from "./SingleProduct"
+import useCategoriesState from "@/hooks/useCategoriesState"
+import { fetchCategories } from "@/tookit/slices/categorySlice"
 
 const Products = () => {
   const { products, isLoading, error, totalPages } = useSelector(
     (state: RootState) => state.productR
   )
+  const { categories } = useCategoriesState()
 
   const dispatch: AppDispatch = useDispatch()
 
@@ -15,13 +18,33 @@ const Products = () => {
   const [pageSize] = useState(5)
   const [searchKeyword, setSearchKeyword] = useState("")
   const [sortBy, setSortBy] = useState("Name")
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
+  const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(fetchProducts({ pageNumber, pageSize, searchKeyword, sortBy }))
+      await dispatch(
+        fetchProducts({
+          pageNumber,
+          pageSize,
+          // searchKeyword,
+          sortBy,
+          selectedCategories,
+          minPrice,
+          maxPrice
+        })
+      )
     }
     fetchData()
-  }, [pageNumber, searchKeyword, sortBy])
+  }, [pageNumber, /*searchKeyword,*/ sortBy, selectedCategories, minPrice, maxPrice])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchCategories({ pageNumber, pageSize: 20, searchKeyword, sortBy }))
+    }
+    fetchData()
+  }, [])
 
   const handlePreviousPage = () => {
     setPageNumber((currentPage) => currentPage - 1)
@@ -32,6 +55,7 @@ const Products = () => {
   }
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault
     setSearchKeyword(e.target.value)
   }
 
@@ -39,11 +63,60 @@ const Products = () => {
     setSortBy(e.target.value)
   }
 
+  const handleCategoryChange = async (categoryId: string) => {
+    setSelectedCategories((prevSelected) =>
+      prevSelected.includes(categoryId)
+        ? prevSelected.filter((id) => id !== categoryId)
+        : [...prevSelected, categoryId]
+    )
+  }
+
+  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMinPrice(Number(e.target.value))
+  }
+
+  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMaxPrice(Number(e.target.value))
+  }
+
   return (
     <div>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error{error}</p>}
       <div>
+        <div>
+          <h3>Filter by Category goes here</h3>
+          {categories &&
+            categories.length > 0 &&
+            categories.map((category) => (
+              <div key={category.categoryId}>
+                <label htmlFor="categories">
+                  <input
+                    type="checkbox"
+                    value={category.categoryId}
+                    checked={selectedCategories.includes(category.categoryId)}
+                    onChange={() => handleCategoryChange(category.categoryId)}
+                  />{" "}
+                  {category.name}
+                </label>
+              </div>
+            ))}
+        </div>
+        <div>
+          <h3>Filter by Price goes here</h3>
+          <div>
+            <label htmlFor="min-price">
+              Min Price:
+              <input type="text" name="min-price" id="min-price" onChange={handleMinPriceChange} />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="max-price">
+              Max Price:
+              <input type="text" name="max-price" id="max-price" onChange={handleMaxPriceChange} />
+            </label>
+          </div>
+        </div>
         <input
           type="text"
           placeholder="Search Products"
