@@ -100,7 +100,6 @@ const productSlice = createSlice({
 
     builder.addCase(fetchProductBySlug.fulfilled, (state, action) => {
       state.product = action.payload.data
-      state.isLoading = false
     })
 
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
@@ -109,6 +108,7 @@ const productSlice = createSlice({
 
     builder.addCase(createProduct.fulfilled, (state, action) => {
       state.products.push(action.payload)
+      state.isLoading = false
     })
 
     builder.addCase(updateProduct.fulfilled, (state, action) => {

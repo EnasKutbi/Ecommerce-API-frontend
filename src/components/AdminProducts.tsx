@@ -104,10 +104,15 @@ export const AdminProducts = () => {
 
   const handleEdit = async (product: Product) => {
     setIsEdit(true)
+    setSelectedProductId(product.productId)
     setValue("name", product.name)
+    setValue("imageUrl", product.imageUrl)
+    setValue("description", product.description)
     setValue("price", product.price)
     setValue("quantity", product.quantity)
+    setValue("sold", product.sold)
     setValue("shipping", product.shipping)
+    setValue("categoryId", product.categoryId)
   }
 
   return (
