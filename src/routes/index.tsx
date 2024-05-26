@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { AdminCategories, AdminDashboard, AdminOrders, AdminProducts, AdminUsersManagement, Contact, Error, Home, UserDashboard } from "@/pages"
+import { AdminCategories, AdminDashboard, AdminOrders, AdminProducts, AdminUsersManagement, Cart, Contact, Error, Home, UserDashboard } from "@/pages"
 import Navbar from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { ProductDetails } from "@/pages/ProductDetails"
@@ -20,6 +20,7 @@ export const Index = () => {
         <Route path="/products/:slug" element={<ProductDetails />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<Cart />} />
 
         <Route path="/dashboard" element={<ProtectedRoute />}>
           <Route path="user" element={<UserDashboard />} />

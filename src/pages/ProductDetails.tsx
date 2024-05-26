@@ -1,6 +1,8 @@
 import PageTitle from "@/components/PageTitle"
+import { addToCart } from "@/tookit/slices/cartSlice"
 import { fetchProductBySlug } from "@/tookit/slices/productSlice"
 import { AppDispatch, RootState } from "@/tookit/store"
+import { Product } from "@/types"
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
@@ -10,6 +12,11 @@ export const ProductDetails = () => {
   const { product, isLoading, error } = useSelector((state: RootState) => state.productR)
 
   const dispatch: AppDispatch = useDispatch()
+
+  const handelAddToCart = (product: Product) => {
+    dispatch(addToCart(product))
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(fetchProductBySlug(slug))
@@ -34,6 +41,14 @@ export const ProductDetails = () => {
               <p className="product-details__sold">Sold: {product.sold}</p>
               <p className="product-details__price">Price: {product.price}</p>
               <p>Product Added: {new Date(product.createdAt).toLocaleDateString()}</p>
+              <button
+                className="btn product_btn"
+                onClick={() => {
+                  handelAddToCart(product)
+                }}
+              >
+                Add To Cart
+              </button>
             </div>
           </div>
         )}

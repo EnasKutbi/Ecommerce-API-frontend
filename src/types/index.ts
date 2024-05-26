@@ -38,6 +38,12 @@ export type ProductState = {
   isLoading: boolean
 }
 
+export type CartItem = Product & { orderQuantity: number }
+
+export type CartState = {
+  cartItems: CartItem[]
+}
+
 export type User = {
   userId?: string
   name: string

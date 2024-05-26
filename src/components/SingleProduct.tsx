@@ -1,9 +1,18 @@
+import { addToCart } from "@/tookit/slices/cartSlice"
+import { AppDispatch } from "@/tookit/store"
 import { Product } from "@/types"
 import React from "react"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 
 const SingleProduct = (props: { product: Product }) => {
   const { product } = props
+  const dispatch: AppDispatch = useDispatch()
+
+  const handelAddToCart = (product: Product) => {
+    dispatch(addToCart(product))
+  }
+
   return (
     <article className="product card">
       <img src={product.imageUrl} alt={product.name} className="product_img" />
@@ -16,7 +25,9 @@ const SingleProduct = (props: { product: Product }) => {
               Show Details
             </button>
           </Link>
-          <button className="btn product_btn">
+          <button className="btn product_btn" onClick={() => {
+            handelAddToCart(product)
+          }}>
             Add To Cart
           </button>
         </div>
