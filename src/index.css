@@ -2,6 +2,108 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: "Harry Potter", sans-serif;
+}
+
+body {
+  text-align: center;
+  background-color: #111a33;
+}
+
+button {
+  background-color: rgb(32, 52, 53);
+  color: white;
+  padding: 7px;
+  border-radius: 10px;
+}
+
+button:hover {
+  opacity: 0.8;
+  /*transform: scale(1.1);*/
+}
+
+input {
+  background-color: #dcf2f1;
+  color: #111a33;
+  border-radius: 20px;
+  height: 25px;
+  width: 250px;
+  margin: 1rem;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav,
+footer {
+  background-color: #a0abbc;
+  padding: 2rem 5rem;
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /*display: inline-block;*/
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+nav ul li {
+  font-size: 22px;
+  padding: 0rem 5rem;
+}
+
+p {
+  font-family: "IFC RAILROAD", sans-serif;
+}
+
+.products {
+  margin-top: 0px;
+  background-color: #111a33;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.product {
+  justify-content: center;
+  align-items: center;
+  background-color: #a0abbc;
+  margin-top: 0px;
+  border: 10px solid white;
+  border-radius: 10px;
+}
+
+.product_img {
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  object-fit: contain;
+  padding: 50px;
+}
+
+.cart-img {
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  object-fit: contain;
+  padding: 50px;
+}
+
+.product:hover {
+  transform: translate(5px, 5px);
+  box-shadow: 0px 0px;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -70,6 +172,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

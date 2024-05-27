@@ -14,7 +14,7 @@ const SingleProduct = (props: { product: Product }) => {
   }
 
   return (
-    <article className="product card">
+    <article className="product">
       <img src={product.imageUrl} alt={product.name} className="product_img" />
       <div className="product_body">
         <h3 className="product_name">{product.name}</h3>

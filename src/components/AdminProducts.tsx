@@ -31,7 +31,7 @@ export const AdminProducts = () => {
   } = useForm<CreateProductFormData>()
 
   const [pageNumber, setPageNumber] = useState(1)
-  const [pageSize] = useState(5)
+  const [pageSize] = useState(6)
   const [searchKeyword, setSearchKeyword] = useState("")
   const [sortBy, setSortBy] = useState("Name")
   const [isEdit, setIsEdit] = useState(false)
