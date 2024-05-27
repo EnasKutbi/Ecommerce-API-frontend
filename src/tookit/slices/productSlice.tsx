@@ -16,7 +16,7 @@ export const fetchProducts = createAsyncThunk(
   async ({
     pageNumber,
     pageSize,
-    // searchKeyword,
+    searchKeyword,
     sortBy,
     selectedCategories,
     minPrice,
@@ -24,7 +24,7 @@ export const fetchProducts = createAsyncThunk(
   }: {
     pageNumber: number
     pageSize: number
-    // searchKeyword: string
+    searchKeyword: string
     sortBy: string
     selectedCategories?: string[]
     minPrice?: number
@@ -33,7 +33,6 @@ export const fetchProducts = createAsyncThunk(
     const params = new URLSearchParams({
       pageNumber: pageNumber.toString(),
       pageSize: pageSize.toString(),
-      // searchKeyword,
       sortBy
     })
     selectedCategories?.forEach((categoryId) => {
@@ -42,9 +41,11 @@ export const fetchProducts = createAsyncThunk(
     if (minPrice !== undefined) {
       params.append("MinPrice", minPrice.toString())
     }
-
     if (maxPrice !== undefined) {
       params.append("MaxPrice", maxPrice.toString())
+    }
+    if (searchKeyword) {
+      params.append("SearchKeyword", searchKeyword)
     }
     const response = await api.get("/products", { params })
     return response.data
@@ -92,10 +93,9 @@ export const updateProduct = createAsyncThunk(
     updateProductData: CreateProductFormData
     productId: string
   }) => {
-    const token = getToken()
     const response = await api.put(`/products/${productId}`, updateProductData, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${getToken()}`
       }
     })
     return response.data
@@ -134,7 +134,7 @@ const productSlice = createSlice({
       )
       if (foundProduct) {
         foundProduct.name = action.payload.data.name
-        foundProduct.imageUrl = action.payload.data.imageUrl
+        // foundProduct.imageUrl = action.payload.data.imageUrl
         foundProduct.description = action.payload.data.description
         foundProduct.price = action.payload.data.price
         foundProduct.quantity = action.payload.data.quantity

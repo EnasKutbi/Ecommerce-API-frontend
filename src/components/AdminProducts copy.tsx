@@ -16,7 +16,6 @@ import {
 } from "@/tookit/slices/productSlice"
 import { uploadImageToCloudinary } from "@/utils/cloudinary"
 
-
 export const AdminProducts = () => {
   const { categories, isLoading } = useCategoriesState()
   const { products, error, totalPages } = useProductsState()
@@ -31,7 +30,7 @@ export const AdminProducts = () => {
   } = useForm<CreateProductFormData>()
 
   const [pageNumber, setPageNumber] = useState(1)
-  const [pageSize] = useState(5)
+  const [pageSize] = useState(25)
   const [searchKeyword, setSearchKeyword] = useState("")
   const [sortBy, setSortBy] = useState("Name")
   const [isEdit, setIsEdit] = useState(false)
@@ -57,7 +56,7 @@ export const AdminProducts = () => {
       await dispatch(fetchCategories({ pageNumber, pageSize, searchKeyword, sortBy }))
     }
     fetchData()
-  }, [pageNumber, searchKeyword, sortBy, selectedCategories, minPrice, maxPrice])
+  }, [dispatch])
 
   const handlePreviousPage = () => {
     setPageNumber((currentPage) => currentPage - 1)
@@ -92,18 +91,18 @@ export const AdminProducts = () => {
   }
 
   const onSubmit: SubmitHandler<CreateProductFormData> = async (data) => {
-    let imageUrl = ""
-    if (data.imageUrl) {
-      // const file = data.imageUrl
-      //upload the file to the cloudinary
-      imageUrl = await uploadImageToCloudinary(data.imageUrl)
-    }
-
-    const productData = {
-      ...data,
-      image: imageUrl
-    }
     try {
+      let imageUrl = ""
+      if (data.imageUrl) {
+        // const file = data.imageUrl
+        //upload the file to the cloudinary
+        imageUrl = await uploadImageToCloudinary(data.imageUrl)
+      }
+
+      const productData = {
+        ...data,
+        image: imageUrl
+      }
       if (isEdit) {
         await dispatch(
           updateProduct({ updateProductData: productData, productId: selectedProductId })
@@ -137,7 +136,7 @@ export const AdminProducts = () => {
     setIsEdit(true)
     setSelectedProductId(product.productId)
     setValue("name", product.name)
-    // setValue("imageUrl", product.imageUrl)
+
     setValue("description", product.description)
     setValue("price", product.price)
     setValue("quantity", product.quantity)
@@ -255,7 +254,7 @@ export const AdminProducts = () => {
               <label htmlFor="sold"> Sold: </label>
               <input
                 type="number"
-                step="0.01"
+                step="1"
                 {...register("sold", {
                   required: "sold is required"
                 })}

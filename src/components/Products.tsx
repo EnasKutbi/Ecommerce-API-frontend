@@ -28,7 +28,7 @@ const Products = () => {
         fetchProducts({
           pageNumber,
           pageSize,
-          // searchKeyword,
+          searchKeyword,
           sortBy,
           selectedCategories,
           minPrice,
@@ -37,7 +37,7 @@ const Products = () => {
       )
     }
     fetchData()
-  }, [pageNumber, /*searchKeyword,*/ sortBy, selectedCategories, minPrice, maxPrice])
+  }, [pageNumber, searchKeyword, sortBy, selectedCategories, minPrice, maxPrice])
 
   useEffect(() => {
     const fetchData = async () => {

@@ -7,7 +7,7 @@ import { registerUser } from "@/tookit/slices/userSlice"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import { RegisterFormData } from "@/types"
-
+import { uploadImageToCloudinary } from "@/utils/cloudinary"
 
 export const Register = () => {
   const navigate = useNavigate()
@@ -21,7 +21,18 @@ export const Register = () => {
 
   const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
     try {
-      const response = await dispatch(registerUser(data))
+      let imageUrls = ""
+      if (data.image && data.image.length > 0) {
+        const file = data.image[0]
+        //upload the file to the cloudinary
+        imageUrls = await uploadImageToCloudinary(file)
+      }
+
+      const userData = {
+        ...data,
+        image: imageUrls
+      }
+      const response = await dispatch(registerUser(userData))
       toast.success(response.payload.message)
       navigate("/login")
     } catch (error: any) {
@@ -29,8 +40,8 @@ export const Register = () => {
     }
   }
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
     if (file) {
       setImagePreview(URL.createObjectURL(file))
     }
