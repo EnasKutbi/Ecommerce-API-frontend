@@ -3,10 +3,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { UserState, User, LoginFormData, UpdateProfileFormData } from "@/types"
 import { getLocalStorage, getToken, setLocalStorage } from "@/utils/localStorage"
 
-// const data =
-//   localStorage.getItem("loginData") != null
-//     ? JSON.parse(String(localStorage.getItem("loginData")))
-//     : []
 
 const data = getLocalStorage("loginData", {
   userData: null,

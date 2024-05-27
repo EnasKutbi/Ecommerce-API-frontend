@@ -1,7 +1,7 @@
 import AdminSidebar from "@/components/AdminSidebar"
-import { AppDispatch, RootState } from "@/tookit/store"
+import { AppDispatch } from "@/tookit/store"
 import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import useCategoriesState from "@/hooks/useCategoriesState"
 import {
   createCategory,

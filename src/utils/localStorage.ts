@@ -6,6 +6,7 @@ export const setLocalStorage = <T>(key: string, value: T): void => {
 
 export const getLocalStorage = <T>(key: string, defaultValue: T): T => {
   const storedValue = localStorage.getItem(key)
+  storedValue != null ? (JSON.parse(storedValue) as T) : defaultValue
   return storedValue !== null ? (JSON.parse(storedValue) as T) : defaultValue
 }
 

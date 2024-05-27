@@ -66,6 +66,23 @@ export type UserState = {
   isLoggedIn: boolean
 }
 
+export type Order = {
+  orderId: string
+  userId?: string
+  orderStatus: string
+  orderTotal: number
+  orderDate: string
+  // orderItems: OrderItems[]
+}
+
+export type OrderState = {
+  orders: Order[]
+  totalPages: number
+  order: Order | null
+  error: string | null
+  isLoading: boolean
+}
+
 export type LoginFormData = {
   email: string
   password: string
@@ -81,14 +98,14 @@ export type RegisterFormData = {
   name: string
   email: string
   password: string
-  image: string
+  image: FileList
   phone: string
   address: string
 }
 
 export type CreateProductFormData = {
   name: string
-  imageUrl: string
+  imageUrl: FileList
   description: string
   price: number
   quantity: number
