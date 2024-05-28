@@ -121,6 +121,7 @@ const productSlice = createSlice({
 
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
       state.products = state.products.filter((product) => product.productId != action.payload)
+      state.isLoading = false
     })
 
     builder.addCase(createProduct.fulfilled, (state, action) => {
@@ -129,19 +130,12 @@ const productSlice = createSlice({
     })
 
     builder.addCase(updateProduct.fulfilled, (state, action) => {
-      const foundProduct = state.products.find(
-        (product) => product.productId == action.payload.data.productId
-      )
-      if (foundProduct) {
-        foundProduct.name = action.payload.data.name
-        // foundProduct.imageUrl = action.payload.data.imageUrl
-        foundProduct.description = action.payload.data.description
-        foundProduct.price = action.payload.data.price
-        foundProduct.quantity = action.payload.data.quantity
-        foundProduct.sold = action.payload.data.sold
-        foundProduct.shipping = action.payload.data.shipping
-        foundProduct.categoryId = action.payload.data.categoryId
-      }
+       state.products = state.products.map((product) =>
+         product.productId === action.payload.productId
+           ? { ...product, ...action.payload }
+           : product
+       )
+      state.isLoading = false
     })
 
     builder.addMatcher(

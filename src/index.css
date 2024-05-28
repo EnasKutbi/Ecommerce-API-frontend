@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
   font-family: "Harry Potter", sans-serif;
   color: #dcf2f1;
 }
@@ -22,6 +22,10 @@ button {
 button:hover {
   opacity: 0.8;
   /*transform: scale(1.1);*/
+/*}
+
+h2 {
+  font-size: 20px;
 }
 
 input, select {
@@ -42,6 +46,15 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 30px 0px;
+}
+
+.main-container {
+  display: flex;
+}
+
+#min-price, #max-price {
+  width: 150px;
 }
 
 nav,
@@ -57,7 +70,7 @@ footer {
   top: 0;
   z-index: 100;
   /*display: inline-block;*/
-}
+/*}
 
 nav ul {
   color: #111a33;
@@ -73,8 +86,46 @@ nav ul li {
   padding: 0rem 5rem;
 }
 
-p {
-  font-family: "IFC RAILROAD", sans-serif;
+.cart-icon {
+  height: 100%;
+  font-size: 2rem;
+  position: relative;
+
+}
+
+.badge {
+  font-size: 1.1rem;
+  background-color: #111a33;
+  border-radius: 0.9rem;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  padding: 0px 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  color: #111a33;
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+table .product_img {
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
 }
 
 .products {
@@ -88,19 +139,26 @@ p {
   justify-content: center;
   align-items: center;
   background-color: #a0abbc;
-  margin-top: 0px;
+  margin: 10px;
   border: 10px solid white;
   border-radius: 10px;
+  height: 500px;
+  width: auto;
+}
+
+.product_body h3, p {
+  color: #111a33;
 }
 
 .product_img,
 .cart-img {
   justify-content: center;
   align-items: center;
-  height: 500px;
+  height: 350px;
   object-fit: contain;
-  padding: 50px;
-}
+  padding: 30px;
+  /* margin: 0px 50px; */
+/*}
 
 /* {
   justify-content: center;
@@ -110,10 +168,16 @@ p {
   padding: 50px;
 } */
 
-.product:hover {
+/*.product:hover {
   transform: translate(5px, 5px);
   box-shadow: 0px 0px;
 }
+
+small {
+  font-family: "IFC RAILROAD", sans-serif;
+  color: black;
+  font-size: 15px;
+} */
 
 @layer base {
   :root {

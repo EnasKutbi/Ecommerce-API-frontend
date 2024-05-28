@@ -162,10 +162,10 @@ export const AdminProducts = () => {
 
   return (
     <div className="container">
-      <AdminSidebar />
-      <div className="main-container">
+      <div className="sidebar">
+        <AdminSidebar />
         <div>
-          <h3>Filter by Category goes here</h3>
+          <h3>Filter by Category</h3>
           {categories &&
             categories.length > 0 &&
             categories.map((category) => (
@@ -183,7 +183,7 @@ export const AdminProducts = () => {
             ))}
         </div>
         <div>
-          <h3>Filter by Price goes here</h3>
+          <h3>Filter by Price</h3>
           <div>
             <label htmlFor="min-price">
               Min Price:
@@ -197,8 +197,10 @@ export const AdminProducts = () => {
             </label>
           </div>
         </div>
+      </div>
+      <div className="main-container">
         {isLoading && <p>Loading...</p>}
-        {error && <p>Error{error}</p>}
+        {error && <p>Error {error}</p>}
         <div>
           <input
             type="text"
@@ -206,7 +208,7 @@ export const AdminProducts = () => {
             value={searchKeyword}
             onChange={handleSearchChange}
           />
-          <p>Stor By:</p>
+          <p>Sort By:</p>
           <select name="" id="" onChange={handleSortChange}>
             <option value="Name">Name</option>
             <option value="Price">Price</option>

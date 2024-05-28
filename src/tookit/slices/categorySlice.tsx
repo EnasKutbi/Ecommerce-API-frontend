@@ -94,6 +94,7 @@ const categorySlice = createSlice({
       state.categories = state.categories.filter(
         (category) => category.categoryId != action.payload
       )
+      state.isLoading = false
     })
 
     builder.addCase(createCategory.fulfilled, (state, action) => {

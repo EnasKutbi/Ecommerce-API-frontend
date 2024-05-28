@@ -57,7 +57,7 @@ export const AdminUsersManagement = () => {
         <div>
           <input
             type="text"
-            placeholder="Search Categories"
+            placeholder="Search User"
             value={searchKeyword}
             onChange={handleSearchChange}
           />

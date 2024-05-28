@@ -14,7 +14,7 @@ export const Footer = () => {
         <button>Subscribe</button>
       </div>
       <div>
-        <p>Copyright 2024 © Enas Kutbi. All rights reserved.</p>
+        <small>Copyright 2024 © Enas Kutbi. All rights reserved.</small>
       </div>
     </footer>
   )

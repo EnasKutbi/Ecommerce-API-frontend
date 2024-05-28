@@ -13,6 +13,7 @@ const AdminSidebar = () => {
           <p>{userData?.name}</p>
           <p>{userData?.email}</p>
         </div>
+        <br />
         <ul>
           <li>
             <Link to="/dashboard/admin/categories">Categories</Link>

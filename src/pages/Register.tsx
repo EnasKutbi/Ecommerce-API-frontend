@@ -92,11 +92,18 @@ export const Register = () => {
           <textarea {...register("address")}></textarea>
         </div>
         <div className="form-field">
-          <label htmlFor="image"> Image: </label>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-          {imagePreview && (
-            <img className="image-preview" src={imagePreview} alt="imagePreview"></img>
-          )}
+          <label className="label" htmlFor="image">
+            {" "}
+            Image:{" "}
+          </label>
+          <input
+            className="input"
+            type="file"
+            accept="image/*"
+            {...register("image")}
+            onChange={handleImageChange}
+          />
+          {imagePreview && <img src={imagePreview} alt="image preview" className="image-preview" />}
         </div>
         <button type="submit">Register</button>
       </form>
