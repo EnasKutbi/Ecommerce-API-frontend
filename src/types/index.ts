@@ -105,11 +105,20 @@ export type RegisterFormData = {
 
 export type CreateProductFormData = {
   name: string
-  imageUrl: File
+  imageUrl: FileList
   description: string
   price: number
   quantity: number
   sold: number
+  shipping: number
+  categoryId: string
+}
+export type CreateProductForBackend = {
+  name: string
+  imageUrl: string
+  description: string
+  price: number
+  quantity: number
   shipping: number
   categoryId: string
 }

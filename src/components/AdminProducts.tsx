@@ -15,6 +15,7 @@ import {
   updateProduct
 } from "@/tookit/slices/productSlice"
 import { uploadImageToCloudinary } from "@/utils/cloudinary"
+import { toast } from "react-toastify"
 
 
 export const AdminProducts = () => {
@@ -91,8 +92,7 @@ export const AdminProducts = () => {
     setMaxPrice(Number(e.target.value))
   }
 
-  const onSubmit: SubmitHandler<CreateProductFormData> = async (data) => {
-    let imageUrl = ""
+  /*    let imageUrl = ""
     if (data.imageUrl) {
       // const file = data.imageUrl
       //upload the file to the cloudinary
@@ -102,19 +102,33 @@ export const AdminProducts = () => {
     const productData = {
       ...data,
       image: imageUrl
-    }
+    } */
+  const onSubmit: SubmitHandler<CreateProductFormData> = async (data) => {
     try {
+      let imageUrls = ""
+      if (data.imageUrl && data.imageUrl.length > 0) {
+        const file = data.imageUrl[0]
+        //upload the file to the cloudinary
+        imageUrls = await uploadImageToCloudinary(file)
+      }
+      const productData = {
+        ...data,
+        imageUrl: imageUrls
+      }
       if (isEdit) {
         await dispatch(
           updateProduct({ updateProductData: productData, productId: selectedProductId })
         )
+        toast.success("Product has been update successfully")
         setIsEdit(false)
       } else {
         await dispatch(createProduct(productData))
+        toast.success("Product has been create successfully")
       }
       reset()
+      setImagePreview(null)
     } catch (error) {
-      console.log(error)
+      toast.error("Product creation failed")
     }
   }
 
@@ -215,10 +229,15 @@ export const AdminProducts = () => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="image"> Image: </label>
-              <input type="file" accept="image/*" onChange={handleImageChange} />
+              <label htmlFor="imageUrl"> Image: </label>
+              <input
+                type="file"
+                accept="imageUrl/*"
+                {...register("imageUrl")}
+                onChange={handleImageChange}
+              />
               {imagePreview && (
-                <img className="image-preview" src={imagePreview} alt="imagePreview"></img>
+                <img src={imagePreview} alt="image preview" className="image-preview" />
               )}
             </div>
 

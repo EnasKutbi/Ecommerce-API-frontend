@@ -1,6 +1,6 @@
 import api from "@/api"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { CreateProductFormData, ProductState } from "@/types"
+import { CreateProductForBackend, CreateProductFormData, ProductState } from "@/types"
 import { getToken } from "@/utils/localStorage"
 
 const initialState: ProductState = {
@@ -74,7 +74,7 @@ export const deleteProduct = createAsyncThunk(
 
 export const createProduct = createAsyncThunk(
   "products/createProduct",
-  async (newProduct: CreateProductFormData) => {
+  async (newProduct: CreateProductForBackend) => {
     const response = await api.post(`/products`, newProduct, {
       headers: {
         Authorization: `Bearer ${getToken()}`
@@ -90,7 +90,7 @@ export const updateProduct = createAsyncThunk(
     updateProductData,
     productId
   }: {
-    updateProductData: CreateProductFormData
+    updateProductData: CreateProductForBackend
     productId: string
   }) => {
     const response = await api.put(`/products/${productId}`, updateProductData, {

@@ -4,6 +4,7 @@
 
 * {
   font-family: "Harry Potter", sans-serif;
+  color: #dcf2f1;
 }
 
 body {
@@ -23,13 +24,18 @@ button:hover {
   /*transform: scale(1.1);*/
 }
 
-input {
+input, select {
   background-color: #dcf2f1;
   color: #111a33;
   border-radius: 20px;
   height: 25px;
   width: 250px;
   margin: 1rem;
+}
+
+textarea {
+  background-color: #dcf2f1;
+  color: #111a33;
 }
 
 .container {
@@ -40,6 +46,7 @@ input {
 
 nav,
 footer {
+  color: #111a33;
   background-color: #a0abbc;
   padding: 2rem 5rem;
   height: 5rem;
@@ -53,12 +60,15 @@ footer {
 }
 
 nav ul {
+  color: #111a33;
   display: flex;
   justify-content: space-between;
   list-style-type: none;
+  color: #111a33;
 }
 
 nav ul li {
+  color: #111a33;
   font-size: 22px;
   padding: 0rem 5rem;
 }
@@ -83,14 +93,7 @@ p {
   border-radius: 10px;
 }
 
-.product_img {
-  justify-content: center;
-  align-items: center;
-  height: 500px;
-  object-fit: contain;
-  padding: 50px;
-}
-
+.product_img,
 .cart-img {
   justify-content: center;
   align-items: center;
@@ -98,6 +101,14 @@ p {
   object-fit: contain;
   padding: 50px;
 }
+
+/* {
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  object-fit: contain;
+  padding: 50px;
+} */
 
 .product:hover {
   transform: translate(5px, 5px);

@@ -5,7 +5,7 @@ export const uploadImageToCloudinary = async (file: File): Promise<string> => {
   formData.append("folder", "e-commerce-sda2")
 
   try {
-    const response = await fetch(`https://api.cloudinary.com/v1_1/enas-kutbi/image/upload`, {
+    const response = await fetch(`https://api.cloudinary.com/v1_1/enas-cloud/image/upload`, {
       method: "POST",
       body: formData
     })
