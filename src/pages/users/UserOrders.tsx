@@ -5,7 +5,7 @@ export const UserOrders = () => {
   return (
     <div className="container">
       <UserSidebar />
-      <div className="main-container">Order goes here</div>
+      <div className="main-container">No Orders yet</div>
     </div>
   )
 }

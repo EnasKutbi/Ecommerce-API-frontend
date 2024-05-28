@@ -6,25 +6,25 @@ import { Link } from "react-router-dom"
 const AdminSidebar = () => {
   const { userData } = useSelector((state: RootState) => state.userR)
   return (
-    <div>
-      <aside className="sidebar-container">
-        <div>
+    <div className="admin-profile-container">
+      <aside className="admin-sidebar">
+        <div className="admin-profile">
           <h2>Admin Profile</h2>
           <p>{userData?.name}</p>
           <p>{userData?.email}</p>
         </div>
         <br />
-        <ul>
-          <li>
+        <ul className="admin-menu">
+          <li className="admin-menu-item">
             <Link to="/dashboard/admin/categories">Categories</Link>
           </li>
-          <li>
+          <li className="admin-menu-item">
             <Link to="/dashboard/admin/products">Products</Link>
           </li>
-          <li>
+          <li className="admin-menu-item">
             <Link to="/dashboard/admin/users">Users</Link>
           </li>
-          <li>
+          <li className="admin-menu-item">
             <Link to="/dashboard/admin/orders">Orders</Link>
           </li>
         </ul>

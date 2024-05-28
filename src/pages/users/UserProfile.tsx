@@ -43,6 +43,7 @@ export const UserProfile = () => {
             <h3>Name: {userData.name}</h3>
             <p>Email: {userData.email}</p>
             <p>Address: {userData.address}</p>
+            <br />
             <button
               onClick={() => {
                 setIsFromOpen(!isFromOpen)

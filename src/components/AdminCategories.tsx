@@ -90,7 +90,7 @@ export const AdminCategories = () => {
       <div className="main-container">
         {isLoading && <p>Loading...</p>}
         {error && <p>Error{error}</p>}
-        <div>
+        <div className="search-sort">
           <input
             type="text"
             placeholder="Search Categories"
@@ -104,7 +104,7 @@ export const AdminCategories = () => {
           </select>
         </div>
         {/* create or edit category */}
-        <div>
+        <div className="category-form">
           <h2>{isEdit ? "Edit Category" : "Create Category"}</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-field">
@@ -130,7 +130,7 @@ export const AdminCategories = () => {
           </form>
         </div>
         <h2>List of categories: </h2>
-        <table>
+        <table className="categories-table">
           <thead>
             <tr>
               <th>Name</th>

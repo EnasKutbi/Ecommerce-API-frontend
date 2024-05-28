@@ -83,7 +83,7 @@ const Products = () => {
     <div className="container">
       {isLoading && <p>Loading...</p>}
       {error && <p>Error{error}</p>}
-      <div className="main-container">
+      <div className="product-container">
         <div className="filter">
           <div className="filter-section">
             <h3>Filter by Category goes here</h3>

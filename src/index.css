@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* * {
+* {
   font-family: "Harry Potter", sans-serif;
   color: #dcf2f1;
 }
@@ -10,6 +10,52 @@
 body {
   text-align: center;
   background-color: #111a33;
+}
+
+nav,
+footer {
+  color: #111a33;
+  background-color: #a0abbc;
+  padding: 2rem 5rem;
+  height: 7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /*display: inline-block;*/
+}
+
+nav ul {
+  color: #111a33;
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  color: #111a33;
+}
+
+nav ul li {
+  color: #111a33;
+  font-size: 20px;
+  padding: 0rem 5rem
+}
+
+.cart-icon {
+  height: 100%;
+  font-size: 2rem;
+  position: relative;
+
+}
+
+.badge {
+  font-size: 1.1rem;
+  background-color: #111a33;
+  border-radius: 0.9rem;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  padding: 0px 6px;
 }
 
 button {
@@ -22,13 +68,21 @@ button {
 button:hover {
   opacity: 0.8;
   /*transform: scale(1.1);*/
-/*}
+}
 
 h2 {
   font-size: 20px;
 }
 
-input, select {
+input[type="checkbox"] {
+  margin-left: 1rem;
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+}
+
+input,
+select {
   background-color: #dcf2f1;
   color: #111a33;
   border-radius: 20px;
@@ -49,58 +103,13 @@ textarea {
   margin: 30px 0px;
 }
 
-.main-container {
+.product-container {
   display: flex;
 }
 
-#min-price, #max-price {
+#min-price,
+#max-price {
   width: 150px;
-}
-
-nav,
-footer {
-  color: #111a33;
-  background-color: #a0abbc;
-  padding: 2rem 5rem;
-  height: 5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  /*display: inline-block;*/
-/*}
-
-nav ul {
-  color: #111a33;
-  display: flex;
-  justify-content: space-between;
-  list-style-type: none;
-  color: #111a33;
-}
-
-nav ul li {
-  color: #111a33;
-  font-size: 22px;
-  padding: 0rem 5rem;
-}
-
-.cart-icon {
-  height: 100%;
-  font-size: 2rem;
-  position: relative;
-
-}
-
-.badge {
-  font-size: 1.1rem;
-  background-color: #111a33;
-  border-radius: 0.9rem;
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  padding: 0px 6px;
 }
 
 table {
@@ -126,6 +135,7 @@ table .product_img {
   max-width: 100px;
   max-height: 100px;
   object-fit: cover;
+
 }
 
 .products {
@@ -146,7 +156,8 @@ table .product_img {
   width: auto;
 }
 
-.product_body h3, p {
+.product-name,
+.product-price {
   color: #111a33;
 }
 
@@ -158,17 +169,14 @@ table .product_img {
   object-fit: contain;
   padding: 30px;
   /* margin: 0px 50px; */
-/*}
+}
 
-/* {
-  justify-content: center;
-  align-items: center;
-  height: 500px;
-  object-fit: contain;
-  padding: 50px;
-} */
+.round-img {
+  height: 200px;
+  width: auto;
+}
 
-/*.product:hover {
+.product:hover {
   transform: translate(5px, 5px);
   box-shadow: 0px 0px;
 }
@@ -177,78 +185,168 @@ small {
   font-family: "IFC RAILROAD", sans-serif;
   color: black;
   font-size: 15px;
-} */
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+.pagination button {
+  background-color: #666;
+  padding: 7px;
+  border-radius: 20px;
+  font-size: 11px;
+  cursor: pointer;
+}
 
-  body {
-    @apply bg-background text-foreground;
-  }
+/* admin dash-sideba */
+.admin-profile-container {
+  display: flex;
+  height: 100vh;
+  background-color: #a0abbc;
+}
+
+.admin-sidebar {
+  width: 250px;
+  background-color: #a0abbc;
+  border-right: 1px solid #e0e0e0;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-profile {
+  margin-bottom: 20px;
+}
+
+.admin-profile h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #333;
+}
+
+.admin-profile p {
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #666;
+}
+
+.admin-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-menu-item {
+  margin-bottom: 10px;
+}
+
+.admin-menu-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.admin-menu-link:hover {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+/* admin categore */
+.admin-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #fff;
+  border-right: 1px solid #e0e0e0;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-container {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  margin: 30px;
+}
+
+.search-sort {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-sort input[type="text"] {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-sort select {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Styling for the category form */
+.category-form {
+  margin-bottom: 20px;
+}
+
+.category-form .form-field {
+  margin-bottom: 10px;
+}
+
+.category-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.category-form input[type="text"],
+.category-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.category-form .btn {
+  padding: 10px 20px;
+  background-color: #9acac8;
+  color: #111a33;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.category-form .btn:hover {
+  background-color: #dcf2f1;
+}
+
+/* Styling for the categories table */
+.categories-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.categories-table th,
+.categories-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.categories-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.categories-table tr:hover {
+  background-color: #f1f1f1;
 }
