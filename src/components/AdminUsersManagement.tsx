@@ -49,27 +49,26 @@ export const AdminUsersManagement = () => {
   }
 
   return (
-    <div className="container">
+    <div className="admin-container">
       <AdminSidebar />
       <div className="main-container">
         {isLoading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        <div>
+        <div className="search-sort">
           <input
             type="text"
-            placeholder="Search User"
+            placeholder="Search Users"
             value={searchKeyword}
             onChange={handleSearchChange}
           />
           <p>Stor By:</p>
           <select name="" id="" onChange={handleSortChange}>
             <option value="Name">Name</option>
-            <option value="Price">Price</option>
           </select>
         </div>
 
         <h2>List of Users: </h2>
-        <table>
+        <table className="categories-table">
           <thead>
             <tr>
               <th>Name</th>
@@ -104,7 +103,7 @@ export const AdminUsersManagement = () => {
               ))}
           </tbody>
         </table>
-
+        <br />
         <div className="pagination">
           <button onClick={handlePreviousPage} disabled={pageNumber == 1}>
             Previous

@@ -85,7 +85,7 @@ export const AdminCategories = () => {
   }
 
   return (
-    <div className="container">
+    <div className="admin-container">
       <AdminSidebar />
       <div className="main-container">
         {isLoading && <p>Loading...</p>}

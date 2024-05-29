@@ -92,7 +92,8 @@ export const Cart = () => {
                 </div>
               ))}
             </div>
-            <div className="catt-summary">
+            <br />
+            <div className="cart-summary">
               <h3>Cart Summary</h3>
               <h4>Total: {cartTotal()} $</h4>
               {isLoggedIn ? (

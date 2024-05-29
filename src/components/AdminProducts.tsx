@@ -17,7 +17,6 @@ import {
 import { uploadImageToCloudinary } from "@/utils/cloudinary"
 import { toast } from "react-toastify"
 
-
 export const AdminProducts = () => {
   const { categories, isLoading } = useCategoriesState()
   const { products, error, totalPages } = useProductsState()
@@ -161,67 +160,33 @@ export const AdminProducts = () => {
   }
 
   return (
-    <div className="container">
-      <div className="sidebar">
-        <AdminSidebar />
-        <div>
-          <h3>Filter by Category</h3>
-          {categories &&
-            categories.length > 0 &&
-            categories.map((category) => (
-              <div key={category.categoryId}>
-                <label htmlFor="categories">
-                  <input
-                    type="checkbox"
-                    value={category.categoryId}
-                    checked={selectedCategories.includes(category.categoryId)}
-                    onChange={() => handleCategoryChange(category.categoryId)}
-                  />{" "}
-                  {category.name}
-                </label>
-              </div>
-            ))}
-        </div>
-        <div>
-          <h3>Filter by Price</h3>
-          <div>
-            <label htmlFor="min-price">
-              Min Price:
-              <input type="text" name="min-price" id="min-price" onChange={handleMinPriceChange} />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="max-price">
-              Max Price:
-              <input type="text" name="max-price" id="max-price" onChange={handleMaxPriceChange} />
-            </label>
-          </div>
-        </div>
-      </div>
+    <div className="admin-container">
+      <AdminSidebar />
       <div className="main-container">
         {isLoading && <p>Loading...</p>}
-        {error && <p>Error {error}</p>}
-        <div>
+        {error && <p>Error: {error}</p>}
+        <div className="search-sort">
           <input
             type="text"
             placeholder="Search Products"
             value={searchKeyword}
             onChange={handleSearchChange}
           />
-          <p>Sort By:</p>
+          <p>Stor By:</p>
           <select name="" id="" onChange={handleSortChange}>
             <option value="Name">Name</option>
             <option value="Price">Price</option>
           </select>
         </div>
-        {/* create or edit product */}
-        <div>
+        {/* create or edit Product */}
+        <div className="category-form">
           <h2>{isEdit ? "Edit Product" : "Create Product"}</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-field">
               <label htmlFor="name"> Name: </label>
               <input
                 type="text"
+                placeholder="Enter Product Name"
                 {...register("name", {
                   required: "Name is required",
                   minLength: { value: 2, message: "Name must be at least 2 characters" }
@@ -230,6 +195,65 @@ export const AdminProducts = () => {
               {errors.name && <p> {errors.name.message} </p>}
             </div>
 
+            <div className="form-field">
+              <label htmlFor="description"> Description: </label>
+              <textarea
+                placeholder="Enter Product Description"
+                {...register("description")}
+              ></textarea>
+            </div>
+
+            <div className="form-field">
+              <label htmlFor="price"> Price: </label>
+              <input
+                placeholder="Enter Product Price"
+                type="number"
+                step="0.1"
+                {...register("price", {
+                  required: "Price is required"
+                })}
+              />
+              {errors.price && <p> {errors.price.message} </p>}
+            </div>
+
+            <div className="form-field">
+              <label htmlFor="quantity"> Quantity: </label>
+              <input
+                placeholder="Enter Product Quantity"
+                type="number"
+                step="0.1"
+                {...register("quantity", {
+                  required: "Quantity is required"
+                })}
+              />
+              {errors.quantity && <p> {errors.quantity.message} </p>}
+            </div>
+
+            <div className="form-field">
+              <label htmlFor="sold"> Sold: </label>
+              <input
+                placeholder="Enter Product Sold"
+                type="number"
+                step="0.1"
+                {...register("sold", {
+                  required: "Sold is required"
+                })}
+              />
+              {errors.sold && <p> {errors.sold.message} </p>}
+            </div>
+
+            <div className="form-field">
+              <label htmlFor="shipping"> Shipping: </label>
+              <input
+                placeholder="Enter Product Shipping"
+                type="number"
+                step="0.1"
+                {...register("shipping", {
+                  required: "Shipping is required"
+                })}
+              />
+              {errors.shipping && <p> {errors.shipping.message} </p>}
+            </div>
             <div className="form-field">
               <label htmlFor="imageUrl"> Image: </label>
               <input
@@ -243,60 +267,6 @@ export const AdminProducts = () => {
               )}
             </div>
 
-            <div className="form-field">
-              <label htmlFor="description"> Description: </label>
-              <textarea {...register("description")}></textarea>
-            </div>
-
-            <div className="form-field">
-              <label htmlFor="price"> Price: </label>
-              <input
-                type="number"
-                step="0.01"
-                {...register("price", {
-                  required: "price is required"
-                })}
-              />
-              {errors.price && <p> {errors.price.message} </p>}
-            </div>
-
-            <div className="form-field">
-              <label htmlFor="quantity"> Quantity: </label>
-              <input
-                type="number"
-                step="0.01"
-                {...register("quantity", {
-                  required: "quantity is required"
-                })}
-              />
-              {errors.quantity && <p> {errors.quantity.message} </p>}
-            </div>
-
-            <div className="form-field">
-              <label htmlFor="sold"> Sold: </label>
-              <input
-                type="number"
-                step="0.01"
-                {...register("sold", {
-                  required: "sold is required"
-                })}
-              />
-              {errors.sold && <p> {errors.sold.message} </p>}
-            </div>
-
-            <div className="form-field">
-              <label htmlFor="shipping"> Shipping: </label>
-              <input
-                type="number"
-                step="0.01"
-                {...register("shipping", {
-                  required: "shipping is required"
-                })}
-              />
-              {errors.shipping && <p> {errors.shipping.message} </p>}
-            </div>
-
-            <br />
             <div className="form-field">
               <label htmlFor="categoryIds"> Category: </label>
               <Controller
@@ -320,8 +290,8 @@ export const AdminProducts = () => {
             </button>
           </form>
         </div>
-        <h2>List of Products: </h2>
-        <table>
+        <h2>List of Product: </h2>
+        <table className="categories-table">
           <thead>
             <tr>
               <th>Image</th>
@@ -356,7 +326,7 @@ export const AdminProducts = () => {
                       Edit
                     </button>
                     <button
-                      className="btn"
+                      className="btn-delete"
                       onClick={() => {
                         handleDelete(product.productId)
                       }}

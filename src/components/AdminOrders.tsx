@@ -65,15 +65,15 @@ export const AdminOrders = () => {
   //     setValue("order Status", order.orderStatus)
   // }
   return (
-    <div className="container">
+    <div className="admin-container">
       <AdminSidebar />
       <div className="main-container">
         {isLoading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        <div>
+        <div className="search-sort">
           <input
             type="text"
-            placeholder="Search Categories"
+            placeholder="Search Orders"
             value={searchKeyword}
             onChange={handleSearchChange}
           />
@@ -84,7 +84,7 @@ export const AdminOrders = () => {
           </select>
         </div>
         {/* edit Order
-            <div>
+            <div className="category-form">
                 <h2>Edit Order</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-field">
@@ -96,7 +96,7 @@ export const AdminOrders = () => {
                     </button>
                     </form> */}
         <h2>List of order: </h2>
-        <table>
+        <table className="categories-table">
           <thead>
             <tr>
               <th>userId</th>

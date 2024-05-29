@@ -27,6 +27,7 @@ export const ProductDetails = () => {
   return (
     <article className="products-details">
       <PageTitle title="Product Details" />
+      <br />
       <h2>Products Details</h2>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error{error}</p>}
