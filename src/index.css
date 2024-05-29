@@ -184,7 +184,7 @@ table th {
   color: #111a33;
 }
 
-.product_img {
+.product_img, .cart-img {
   justify-content: center;
   align-items: center;
   height: 350px;
