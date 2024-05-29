@@ -58,6 +58,29 @@ nav ul li {
   padding: 0px 6px;
 }
 
+.home {
+  color: #2d3b4f;
+  padding: 50px;
+  background-image: url("https://res.cloudinary.com/enas-cloud/image/upload/v1716949262/e-commerce-sda2/j1cfgrv0sqcmvpf51dyz.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
+  width: 1200px;
+  height: 500px;
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 33px;
+  text-shadow: -2px -2px 4px rgba(0, 0, 0, 0.5),
+    2px -2px 4px rgba(0, 0, 0, 0.5),
+    2px 2px 4px rgba(0, 0, 0, 0.5),
+    -2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.product-container {
+  display: flex;
+}
+
 button {
   background-color: rgb(32, 52, 53);
   color: white;
@@ -398,4 +421,44 @@ small {
   justify-content: center;
   background-color: #50535b;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 900px) {
+
+  header,
+  footer {
+    height: auto;
+  }
+
+  nav ul {
+    display: flex;
+  }
+
+  #home {
+    width: auto;
+    height: auto;
+  }
+
+  .products {
+    grid-template-columns: auto auto;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  header,
+  footer {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  #home {
+    width: auto;
+  }
+
+  .products {
+    grid-template-columns: auto;
+  }
 }
